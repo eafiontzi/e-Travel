@@ -2,41 +2,32 @@ import React, { Component } from 'react';
 
 class App extends Component {
     state = {
-        todos: []
-    }
+        movies: []
+    };
     componentDidMount() {
         fetch('https://star-wars-api.herokuapp.com/films')
             .then(res => res.json())
             .then((data) => {
-                this.setState({ todos: data });
-                console.log(this.state.todos);
+                this.setState({ movies: data });
+                console.log(this.state.movies);
             })
             .catch(console.log)
     }
     render() {
         return (
             <div className="container">
-                <div className="col-xs-12">
-                    <h1>My Todos</h1>
-                    {this.state.todos.map((todo) => (
-                        <div className="card">
-                            <div className="card-body">
-                                <h5 className="card-title">{todo.fields.title}</h5>
-                                {/*<h6 className="card-subtitle mb-2 text-muted">*/}
-                                    {/*{ todo.completed &&*/}
-                                    {/*<span>*/}
-                                      {/*Completed*/}
-                                    {/*</span>*/}
-                                    {/*}*/}
-                                    {/*{ !todo.completed &&*/}
-                                    {/*<span>*/}
-                                      {/*Pending*/}
-                                    {/*</span>*/}
-                                    {/*}*/}
-                                {/*</h6>*/}
-                            </div>
-                        </div>
-                    ))}
+                <div className="col-12 col-lg-6">
+                    <div className="card">
+                        <ul className="list-group list-group-flush">
+                          {this.state.movies.map((movies) => (
+                              <li className="list-group-item d-flex justify-content-between">
+                                  <div>Episode {movies.fields.episode_id}</div>
+                                  <div>{movies.fields.title}</div>
+                                  <div>{movies.fields.release_date}</div>
+                              </li>
+                          ))}
+                        </ul>
+                    </div>
                 </div>
             </div>
         );
