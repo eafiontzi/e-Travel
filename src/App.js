@@ -16,17 +16,24 @@ class App extends Component {
     render() {
         return (
             <div className="container">
-                <div className="col-12 col-lg-6">
-                    <div className="card">
-                        <ul className="list-group list-group-flush">
-                          {this.state.movies.map((movies) => (
-                              <li className="list-group-item d-flex justify-content-between">
-                                  <div>Episode {movies.fields.episode_id}</div>
-                                  <div>{movies.fields.title}</div>
-                                  <div>{movies.fields.release_date}</div>
-                              </li>
-                          ))}
-                        </ul>
+                <div className="row">
+                    <div className="col-12 col-lg-6">
+                        <div className="card">
+                            <ul className="list-group list-group-flush">
+                              {this.state.movies.map((movies) => (
+                                  <li id={movies.fields.episode_id} className="list-group-item d-flex justify-content-between">
+                                      <div>Episode {movies.fields.episode_id}</div>
+                                      <div className="font-weight-bold">{movies.fields.title}</div>
+                                      <div>{movies.fields.release_date}</div>
+                                  </li>
+                              ))}
+                            </ul>
+                        </div>
+                    </div>
+                    <div className="col-12 col-lg-6">
+                        <div>
+                            No movie selected
+                        </div>
                     </div>
                 </div>
             </div>
