@@ -7,9 +7,11 @@ class List extends Component {
             filtered: [],
             description: "No movie selected",
             titleDescription: "",
-            producer: ""
+            producer: "",
+            isOpen: false
         };
         this.handleChange = this.handleChange.bind(this);
+        this.onSort = this.onSort.bind(this)
     }
 
     componentDidMount() {
@@ -56,11 +58,42 @@ class List extends Component {
         });
     }
 
+    toggleOpen = () => this.setState({ isOpen: !this.state.isOpen });
+
+    onSort(event, sortKey){
+        const data = this.state.filtered;
+        data.sort((a,b) => a.fields[sortKey].localeCompare(b.fields[sortKey]));
+        this.setState({
+            filtered: data
+        });
+    }
+
     render() {
+        const menuClass = `dropdown-menu${this.state.isOpen ? " show" : ""}`;
+
         return (
             <div>
                 <div className="row py-4">
-                    <input type="text" className="search form-control" onChange={this.handleChange} placeholder="Search..."/>
+                    <div className="col-6 col-lg-2">
+                        <div className="dropdown" onClick={this.toggleOpen}>
+                            <button
+                                className="btn btn-secondary dropdown-toggle"
+                                type="button"
+                                id="dropdownMenuButton"
+                                data-toggle="dropdown"
+                                aria-haspopup="true"
+                            >
+                                Sort by..
+                            </button>
+                            <div className={menuClass} aria-labelledby="dropdownMenuButton">
+                                <a className="dropdown-item" href="#" onClick={e => this.onSort(e, 'release_date')}>Year</a>
+                                <a className="dropdown-item" href="#" onClick={e => this.onSort(e, 'title')}>Episode</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="col-6 col-lg-10">
+                     <input type="text" className="search form-control" onChange={this.handleChange} placeholder="Type to search..."/>
+                    </div>
                 </div>
                 <div className="row">
                     <div className="col-12 col-lg-6">
