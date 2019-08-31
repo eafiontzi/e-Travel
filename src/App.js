@@ -9,6 +9,7 @@ class App extends Component {
         };
     }
 
+    //get movies from endpoint
     componentDidMount() {
         fetch('https://star-wars-api.herokuapp.com/films')
             .then(res => res.json())
@@ -19,6 +20,7 @@ class App extends Component {
             .catch(console.log)
     }
 
+    //return the list
     render() {
         return (
             <div className="container">

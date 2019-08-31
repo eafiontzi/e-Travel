@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 class List extends Component {
     constructor(props) {
         super(props);
+        //set initial values to variables
         this.state = {
             filtered: [],
             description: "No movie selected",
@@ -14,6 +15,7 @@ class List extends Component {
         this.onSort = this.onSort.bind(this)
     }
 
+    //get filtered movies
     componentDidMount() {
         this.setState({
             filtered: this.props.items
@@ -26,8 +28,8 @@ class List extends Component {
         });
     }
 
+    //set specific episode details
     handleClick = (event, description, title, producer) => {
-        //set specific episode details
         this.setState({ description: description });
         this.setState({ titleDescription: title });
         this.setState({ producer: "Directed By: " + producer });
@@ -58,17 +60,22 @@ class List extends Component {
         });
     }
 
+    //toggle the sort dropdown-menu
     toggleOpen = () => this.setState({ isOpen: !this.state.isOpen });
 
     onSort(event, sortKey){
+        //get existing filtered movies
         const data = this.state.filtered;
+        //sort them according to selected field
         data.sort((a,b) => a.fields[sortKey].localeCompare(b.fields[sortKey]));
+        //save the new sorted data to filtered
         this.setState({
             filtered: data
         });
     }
 
     render() {
+        //toggle dropdown menu class
         const menuClass = `dropdown-menu${this.state.isOpen ? " show" : ""}`;
 
         return (
@@ -92,7 +99,7 @@ class List extends Component {
                         </div>
                     </div>
                     <div className="col-6 col-lg-10">
-                     <input type="text" className="search form-control" onChange={this.handleChange} placeholder="Type to search..."/>
+                        <input type="text" className="search form-control" onChange={this.handleChange} placeholder="Type to search..."/>
                     </div>
                 </div>
                 <div className="row">
