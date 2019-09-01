@@ -15,6 +15,25 @@ class List extends Component {
         this.onSort = this.onSort.bind(this)
     }
 
+    UNSAFE_componentWillReceiveProps(nextProps) {
+        this.setState({
+            filtered: nextProps.items
+        });
+    }
+
+    // static getDerivedStateFromProps(props, state) {
+    //     // Store prevId in state so we can compare when props change.
+    //     // Clear out previously-loaded data (so we don't render stale stuff).
+    //     if (props.id !== state.prevId) {
+    //         return {
+    //             filtered: props.items,
+    //         };
+    //     }
+    //
+    //     // No state update necessary
+    //     return null;
+    // }
+
     //get filtered movies
     componentDidMount() {
         this.setState({
@@ -22,11 +41,13 @@ class List extends Component {
         });
     }
 
-    componentWillReceiveProps(nextProps) {
-        this.setState({
-            filtered: nextProps.items
-        });
-    }
+    // componentDidUpdate(prevProps, prevState) {
+    //     if (this.state.filtered === null) {
+    //         return {
+    //             filtered: this.props.items
+    //         };
+    //     }
+    // }
 
     //set specific episode details
     handleClick = (event, description, title, producer) => {
@@ -81,7 +102,7 @@ class List extends Component {
         return (
             <div>
                 <div className="row py-4">
-                    <div className="col-6 col-lg-2">
+                    <div className="col-4 col-lg-2">
                         <div className="dropdown" onClick={this.toggleOpen}>
                             <button
                                 className="btn btn-secondary dropdown-toggle"
@@ -93,17 +114,17 @@ class List extends Component {
                                 Sort by..
                             </button>
                             <div className={menuClass} aria-labelledby="dropdownMenuButton">
-                                <a className="dropdown-item" href="#" onClick={e => this.onSort(e, 'release_date')}>Year</a>
-                                <a className="dropdown-item" href="#" onClick={e => this.onSort(e, 'title')}>Episode</a>
+                                <button className="dropdown-item" onClick={e => this.onSort(e, 'release_date')}>Year</button>
+                                <button className="dropdown-item" onClick={e => this.onSort(e, 'title')}>Episode</button>
                             </div>
                         </div>
                     </div>
-                    <div className="col-6 col-lg-10">
+                    <div className="col-8 col-lg-10">
                         <input type="text" className="search form-control" onChange={this.handleChange} placeholder="Type to search..."/>
                     </div>
                 </div>
                 <div className="row">
-                    <div className="col-12 col-lg-6">
+                    <div className="col-12 col-lg-6 pb-4 pb-lg-0">
                         <div className="card">
                             <ul className="list-group list-group-flush">
                                 {this.state.filtered.map((movie) => (
