@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Dropdown from "./Dropdown";
 
 class List extends Component {
     constructor(props) {
@@ -97,27 +98,13 @@ class List extends Component {
 
     render() {
         //toggle dropdown menu class
-        const menuClass = `dropdown-menu${this.state.isOpen ? " show" : ""}`;
+        // const menuClass = `dropdown-menu${this.state.isOpen ? " show" : ""}`;
 
         return (
             <div>
                 <div className="row py-4">
                     <div className="col-4 col-lg-2">
-                        <div className="dropdown" onClick={this.toggleOpen}>
-                            <button
-                                className="btn btn-secondary dropdown-toggle"
-                                type="button"
-                                id="dropdownMenuButton"
-                                data-toggle="dropdown"
-                                aria-haspopup="true"
-                            >
-                                Sort by..
-                            </button>
-                            <div className={menuClass} aria-labelledby="dropdownMenuButton">
-                                <button className="dropdown-item" onClick={e => this.onSort(e, 'release_date')}>Year</button>
-                                <button className="dropdown-item" onClick={e => this.onSort(e, 'title')}>Episode</button>
-                            </div>
-                        </div>
+                        <Dropdown onSortYear={e => this.onSort(e, 'release_date')} onSortEpis={e => this.onSort(e, 'title')}/>
                     </div>
                     <div className="col-8 col-lg-10">
                         <input type="text" className="search form-control" onChange={this.handleChange} placeholder="Type to search..."/>
