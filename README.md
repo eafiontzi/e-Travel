@@ -1,4 +1,4 @@
-## e-Travel frontend assignment
+## App listing Star Wars movies filtered and sorted
 
 The app lists all Star Wars movies from a provided endpoint with the following functionality:
 
