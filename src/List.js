@@ -115,7 +115,7 @@ class List extends Component {
                         <div className="card">
                             <ul className="list-group list-group-flush">
                                 {this.state.filtered.map((movie) => (
-                                    <li onClick={((e) => this.handleClick(e, movie.fields.opening_crawl, movie.fields.title, movie.fields.producer ))} key={movie.fields.episode_id} id={movie.fields.episode_id} className="list-group-item d-flex justify-content-between">
+                                    <li onClick={((e) => this.handleClick(e, movie.fields.opening_crawl, movie.fields.title, movie.fields.producer ))} key={movie.fields.episode_id} id={'episode'+movie.fields.episode_id} className="list-group-item d-flex justify-content-between" data={'episode' +movie.fields.episode_id}>
                                         <div>Episode {movie.fields.episode_id}</div>
                                         <div className="font-weight-bold">{movie.fields.title}</div>
                                         <div>{movie.fields.release_date}</div>
@@ -128,7 +128,7 @@ class List extends Component {
                         <h3 className="py-2">
                             {this.state.titleDescription}
                         </h3>
-                        <div>
+                        <div className="description" id="description">
                             {this.state.description}
                         </div>
                         <div className="py-2">

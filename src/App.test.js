@@ -34,14 +34,14 @@ it("dummy test containing phrase from DOM", () => {
     expect(container.textContent).toContain("movie selected");
 });
 
-it("renders user data", async () => {
+it("renders user data and shows movie crawl on click", async () => {
     const fakeMovie = [{
         fields: {
             producer: "Eleni Afiontzi",
             title: "Episode X - Luke Skywalker meets Yoda in afterlife",
             release_date: "2019-09-01",
             episode_id: 10,
-            opening_crawl: "It is a dark time for the Jedis..",
+            opening_crawl: "It is a dark time for the Jedis... Strong, must you be.  Read the assignment carefully, you should.",
         },
         model: "resources.film",
         id: 10
@@ -57,9 +57,18 @@ it("renders user data", async () => {
     await act(async () => {
         render(<List items={fakeMovie} />, container);
     });
-    console.log(container.textContent);
-
     expect(container.textContent).toContain("Episode X");
+    expect(document.querySelector("[class=font-weight-bold]").textContent).toBe("Episode X - Luke Skywalker meets Yoda in afterlife");
+
+    //when click on the movie, the opening_crawl is shown
+    const descrContainer = document.querySelector("[id=description]");
+    const title = document.querySelector("[id=episode10]");
+
+    act(() => {
+        title.dispatchEvent(new MouseEvent("click", { bubbles: true }));
+    });
+
+    expect(descrContainer.textContent).toContain("It is a dark time for the Jedis");
 
     // remove the mock to ensure tests are completely isolated
     global.fetch.mockRestore();
